@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.tab-custom{ 
+    @apply w-80 md:w-96 flex justify-between items-center
+    border-2  rounded-s-full rounded-e-full 
+}
+.tab-item-custom{
+    @apply w-1/2 h-10 flex justify-center items-center hover:bg-orange-500 
+}
+/* .tab-active{
+    @apply 
+} */
