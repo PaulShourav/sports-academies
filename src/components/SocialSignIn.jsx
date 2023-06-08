@@ -4,7 +4,7 @@ import { AuthContext } from '../providers/AuthProvider';
 
 const SocialSignIn = () => {
     const {user, googleSignIn}=useContext(AuthContext)
-    console.log(user);
+    // console.log(user);
     const handleGoogleSignIn=()=>{
         googleSignIn()
         .then((result) => {

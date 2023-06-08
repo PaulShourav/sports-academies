@@ -3,36 +3,49 @@ import { useForm } from "react-hook-form";
 import SocialSignIn from "../../components/SocialSignIn";
 import { useContext } from 'react';
 import { AuthContext } from "../../providers/AuthProvider";
+import { updateProfile } from "firebase/auth";
 
 
 
 const SignInAndUp = () => {
     const [tabText, setTabTest] = useState('signin')
-    const { register,setError, handleSubmit, reset, formState: { errors } } = useForm();
-    const {user,createAccount}=useContext(AuthContext)
-
+    const { register, setError, handleSubmit, reset, formState: { errors } } = useForm();
+    const { user, createAccount } = useContext(AuthContext)
+    console.log(user);
     const onSubmitSignIn = data => {
         console.log(data)
     };
     const onSubmitSignUp = data => {
-        console.log(data.password,data.confirm_password);
-        if (data.password!==data.confirm_password) {
-            return setError("password",{
-                type:"custom",
-                message:"Password don't match with confirm password"
+        console.log(data.password, data.confirm_password);
+        if (data.password !== data.confirm_password) {
+            return setError("password", {
+                type: "custom",
+                message: "Password don't match with confirm password"
             })
         }
-        createAccount(data.email,data.password)
-        .then((userCredential) => {
-            // Signed in 
-            const user = userCredential.user;
-            
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        createAccount(data.email, data.password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                updateUserProfile(user, data.name, data.image)
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
-    console.log(tabText);
+    const updateUserProfile = (user, name, image) => {
+        updateProfile(user, {
+            displayName: name, photoURL: image
+        }).then(() => {
+            // Profile updated!
+            // ...
+        }).catch((error) => {
+            // An error occurred
+            // ...
+        });
+    }
+    // console.log(tabText);
     return (
         <div className="min-h-screen flex justify-center items-center">
             <div className="card md:w-[800px] md:h-[570px] md:bg-gray-100 shadow-xl ">
@@ -53,32 +66,32 @@ const SignInAndUp = () => {
 
                             {
                                 tabText == "signin" ?
-                                <div className="w-full md:w-3/5">
+                                    <div className="w-full md:w-3/5">
 
-                                    <form onSubmit={handleSubmit(onSubmitSignIn)} >
-                                        <p className="font-bold text-2xl text-center uppercase mb-6">Sign In</p>
-                                        <div className="form-control">
-                                            <label className="label">
-                                                <span className="label-text">Email</span>
-                                            </label>
-                                            <input type="text" {...register("email", { required: true })} placeholder="email" className="input input-bordered" />
-                                            {errors.email?.type === 'required' && <p className="text-red-500">Email is required</p>}
+                                        <form onSubmit={handleSubmit(onSubmitSignIn)} >
+                                            <p className="font-bold text-2xl text-center uppercase mb-6">Sign In</p>
+                                            <div className="form-control">
+                                                <label className="label">
+                                                    <span className="label-text">Email</span>
+                                                </label>
+                                                <input type="text" {...register("email", { required: true })} placeholder="email" className="input input-bordered" />
+                                                {errors.email?.type === 'required' && <p className="text-red-500">Email is required</p>}
+                                            </div>
+                                            <div className="form-control">
+                                                <label className="label">
+                                                    <span className="label-text">Password</span>
+                                                </label>
+                                                <input type="password" {...register("password", { required: true })} placeholder="password" className="input input-bordered" />
+                                                {errors.password?.type === 'required' && <p className="text-red-500">Password is required</p>}
+                                            </div>
+                                            <p onClick={() => { setTabTest('signup'), reset() }}>Create a account?</p>
+                                            <input type="submit" className="mt-4 w-full btn rounded-3xl btn-primary" value={"SIGN IN"} />
+
+                                        </form>
+                                        <div className=" text-center mt-3">
+                                            <SocialSignIn />
                                         </div>
-                                        <div className="form-control">
-                                            <label className="label">
-                                                <span className="label-text">Password</span>
-                                            </label>
-                                            <input type="password" {...register("password", { required: true })} placeholder="password" className="input input-bordered" />
-                                            {errors.password?.type === 'required' && <p className="text-red-500">Password is required</p>}
-                                        </div>
-                                        <p onClick={() => { setTabTest('signup'), reset() }}>Create a account?</p>
-                                        <input type="submit" className="mt-4 w-full btn rounded-3xl btn-primary" value={"SIGN IN"} />
-                                        
-                                    </form> 
-                                    <div className=" text-center mt-3">
-                                            <SocialSignIn/>
-                                        </div>
-                                </div>:
+                                    </div> :
                                     <form onSubmit={handleSubmit(onSubmitSignUp)} className="w-full md:w-3/4">
                                         <p className="font-bold text-2xl text-center uppercase mb-6">Sign up</p>
                                         <div className="flex flex-col md:flex-row gap-5">
@@ -111,11 +124,11 @@ const SignInAndUp = () => {
                                                 <label className="label">
                                                     <span className="label-text">Password</span>
                                                 </label>
-                                                <input type="password" {...register("password", { required: true,minLength:6,pattern:/^(?=.*[!@#$%^&*])(?=.*[A-Z])/ })} placeholder="password" className="input input-bordered" />
+                                                <input type="password" {...register("password", { required: true, minLength: 6, pattern: /^(?=.*[!@#$%^&*])(?=.*[A-Z])/ })} placeholder="password" className="input input-bordered" />
                                                 {errors.password?.type === 'required' && <p className="text-red-500">Password is required</p>}
-                                                {errors.password?.type === 'minLength' && <p className="text-red-500">Password must be greater than 6 </p> }
-                                                {errors.password?.type === 'pattern' && <p className="text-red-500">Password must be one special character,one capital character.   </p> }
-                                                
+                                                {errors.password?.type === 'minLength' && <p className="text-red-500">Password must be greater than 6 </p>}
+                                                {errors.password?.type === 'pattern' && <p className="text-red-500">Password must be one special character,one capital character.   </p>}
+
                                             </div>
                                             <div className="form-control md:w-1/2">
                                                 <label className="label">
