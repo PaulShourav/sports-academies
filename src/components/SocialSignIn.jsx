@@ -10,12 +10,28 @@ const SocialSignIn = () => {
         .then((result) => {
             // The signed-in user info.
             const user = result.user;
-           console.log(user);
+            console.log(user);
+            addUser(user)
+          
           }).catch((error) => {
             // Handle Errors here.
             console.log(error);
           });
 
+    }
+    const addUser=(user)=>{
+        const newData={name:user.displayName,image:user.photoURL,email:user.email,role:"student"}
+        fetch("http://localhost:5000/user",{
+            method:"POST",
+            headers:{
+                "content-type":"application/json"
+            },
+            body:JSON.stringify(newData)
+        })
+        .then(res=>res.json())
+        .then(data=>{
+           
+        })
     }
     return (
         <>

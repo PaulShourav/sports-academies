@@ -5,6 +5,8 @@ import Home from '../pages/Home/Home';
 import SignInAndUp from '../pages/SignInAndUp/SignInAndUp';
 import Screate from '../pages/Screate';
 import PrivateRoute from './PrivateRoute';
+import Dashboard from '../layouts/Dashboard';
+import AllUser from '../pages/Dashboard/AllUser/AllUser';
 
 const router=createBrowserRouter([
     {
@@ -22,6 +24,16 @@ const router=createBrowserRouter([
             {
                 path:'signIn&Up',
                 element:<SignInAndUp/>
+            }
+        ]
+    },
+    {
+        path:"dashboard",
+        element:<Dashboard/>,
+        children:[
+            {
+                path:"allUser",
+                element:<AllUser/>
             }
         ]
     }

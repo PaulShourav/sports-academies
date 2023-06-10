@@ -11,39 +11,76 @@ const SignInAndUp = () => {
     const [tabText, setTabTest] = useState('signin')
     const { register, setError, handleSubmit, reset, formState: { errors } } = useForm();
     const { user, createAccount } = useContext(AuthContext)
-    console.log(user);
+    // console.log(user);
+   
+   
     const onSubmitSignIn = data => {
         console.log(data)
     };
     const onSubmitSignUp = data => {
-        console.log(data.password, data.confirm_password);
+        const formData=new FormData()
+
         if (data.password !== data.confirm_password) {
             return setError("password", {
                 type: "custom",
                 message: "Password don't match with confirm password"
             })
         }
-        createAccount(data.email, data.password)
-            .then((userCredential) => {
-                // Signed in 
-                const user = userCredential.user;
-                updateUserProfile(user, data.name, data.image)
-
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        formData.append('image',data.image[0])
+        // Store image in imgbb
+        fetch(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_img_hosting_token}`,{
+            method:"POST",
+            body:formData
+        })
+        .then(res=>res.json())
+        .then(imgRes=>{
+            // Successfully stored image then create account 
+            if(imgRes.success){
+                createAccount(data.email, data.password)
+                .then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user;
+                    updateUserProfile(user, data.name, imgRes.data.display_url)
+                    // Successfully created account then store user data in database
+                    addUser(user, data.name,imgRes.data.display_url)
+    
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            }
+        })
+      
+        
+        
     };
     const updateUserProfile = (user, name, image) => {
         updateProfile(user, {
             displayName: name, photoURL: image
         }).then(() => {
-            // Profile updated!
+            // Profile updated!         
             // ...
         }).catch((error) => {
             // An error occurred
             // ...
         });
+    }
+    const addUser=(data,name,image)=>{
+        console.log(data);
+        const newData={name:name,image:image,email:data.email,role:"student"}
+        fetch("http://localhost:5000/user",{
+            method:"POST",
+            headers:{
+                "content-type":"application/json"
+            },
+            body:JSON.stringify(newData)
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            if (data.insertedId) {
+                 reset()
+            }
+        })
     }
     // console.log(tabText);
     return (
@@ -104,20 +141,22 @@ const SignInAndUp = () => {
                                             </div>
                                             <div className="form-control md:w-3/5">
                                                 <label className="label">
-                                                    <span className="label-text">Email</span>
+                                                    <span className="label-text">Image</span>
                                                 </label>
-                                                <input type="email" {...register("email", { required: true })} placeholder="email" className="input input-bordered" />
-                                                {errors.email?.type === 'required' && <p className="text-red-500">Email is required</p>}
+
+                                                <input type="file" {...register("image", { required: true })} placeholder="Image" className="file-input file-input-bordered file-input-primary w-full max-w-xs" />
+                                                {errors.image?.type === 'required' && <p className="text-red-500">Image is required</p>}
                                             </div>
+
                                         </div>
 
 
                                         <div className="form-control">
                                             <label className="label">
-                                                <span className="label-text">Image</span>
+                                                <span className="label-text">Email</span>
                                             </label>
-                                            <input type="text" {...register("image", { required: true })} placeholder="Image" className="input input-bordered" />
-                                            {errors.image?.type === 'required' && <p className="text-red-500">Image is required</p>}
+                                            <input type="email" {...register("email", { required: true })} placeholder="email" className="input input-bordered" />
+                                            {errors.email?.type === 'required' && <p className="text-red-500">Email is required</p>}
                                         </div>
                                         <div className="flex flex-col md:flex-row gap-5">
                                             <div className="form-control  md:w-1/2">
