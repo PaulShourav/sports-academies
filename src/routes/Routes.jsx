@@ -9,6 +9,7 @@ import Dashboard from '../layouts/Dashboard';
 import AllUser from '../pages/Dashboard/AllUser/AllUser';
 import AddClass from '../pages/Dashboard/AddClass/AddClass';
 import AdminRoute from './AdminRoute';
+import InstructorRoute from './InstructorRoute';
 
 const router=createBrowserRouter([
     {
@@ -39,7 +40,7 @@ const router=createBrowserRouter([
             },
             {
                 path:"addClass",
-                element:<AddClass/>
+                element:<InstructorRoute><AddClass/></InstructorRoute>
             }
         ]
     }

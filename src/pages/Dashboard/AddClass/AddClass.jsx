@@ -1,10 +1,9 @@
 import { useForm } from "react-hook-form";
-import useAdmin from "../../../hooks/useAdmin";
+
 
 const AddClass = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const [isAdmin]=useAdmin()
-    console.log(isAdmin);
+   
     const onSubmit = data => { 
         const formData=new FormData()
         formData.append('image',data.image[0])

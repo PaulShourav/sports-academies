@@ -1,13 +1,17 @@
 import {Link, Outlet } from "react-router-dom";
 import useAdmin from "../hooks/useAdmin";
+import useInstructor from "../hooks/useInstructor";
 
 const Dashboard = () => {
     const [isAdmin]=useAdmin()
+    const [isInstructor]=useInstructor()
     console.log(isAdmin);
     const navLink = <>
         
         {isAdmin?<li><Link to={'allUser'}>All user</Link></li>:''}
-        <li><Link to={'addClass'}>Add Class</Link></li></>
+        {isInstructor?<li><Link to={'addClass'}>Add Class</Link></li>:''}
+        {/* <li><Link to={'addClass'}>Add Class</Link></li></> */}
+        </>
     return (
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
