@@ -4,6 +4,7 @@ import SocialSignIn from "../../components/SocialSignIn";
 import { useContext } from 'react';
 import { AuthContext } from "../../providers/AuthProvider";
 import { updateProfile } from "firebase/auth";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 
@@ -11,6 +12,11 @@ const SignInAndUp = () => {
     const [tabText, setTabTest] = useState('signin')
     const { register, setError, handleSubmit, reset, formState: { errors } } = useForm();
     const { user, createAccount } = useContext(AuthContext)
+    const navigate=useNavigate()
+    const location=useLocation()
+    const currentLocation=location?.state?.from?.pathname || '/'
+    console.log(location);
+    console.log(location.state.from.pathname);
     // console.log(user);
    
    
@@ -126,7 +132,7 @@ const SignInAndUp = () => {
 
                                         </form>
                                         <div className=" text-center mt-3">
-                                            <SocialSignIn />
+                                            <SocialSignIn currentLocation={currentLocation}/>
                                         </div>
                                     </div> :
                                     <form onSubmit={handleSubmit(onSubmitSignUp)} className="w-full md:w-3/4">

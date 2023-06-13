@@ -1,10 +1,12 @@
 import { useContext } from 'react';
 import { FaGoogle } from 'react-icons/fa';
 import { AuthContext } from '../providers/AuthProvider';
+import { useNavigate } from 'react-router-dom';
 
-const SocialSignIn = () => {
+const SocialSignIn = ({currentLocation}) => {
     const {user, googleSignIn}=useContext(AuthContext)
     // console.log(user);
+    const navigate=useNavigate()
     const handleGoogleSignIn=()=>{
         googleSignIn()
         .then((result) => {
@@ -12,7 +14,7 @@ const SocialSignIn = () => {
             const user = result.user;
             console.log(user);
             addUser(user)
-          
+            navigate(currentLocation,{replace:true})
           }).catch((error) => {
             // Handle Errors here.
             console.log(error);

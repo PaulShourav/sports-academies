@@ -1,13 +1,17 @@
 import {Link, Outlet } from "react-router-dom";
+import useAdmin from "../hooks/useAdmin";
 
 const Dashboard = () => {
+    const [isAdmin]=useAdmin()
+    console.log(isAdmin);
     const navLink = <>
-        <li><Link to={'allUser'}>All user</Link></li>
-        <li><a>Sidebar Item 2</a></li></>
+        
+        {isAdmin?<li><Link to={'allUser'}>All user</Link></li>:''}
+        <li><Link to={'addClass'}>Add Class</Link></li></>
     return (
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-            <div className="drawer-content flex flex-col ">
+            <div className="md:p-8 drawer-content flex flex-col ">
                 {/* Page content here */}
                 <div className="">
 

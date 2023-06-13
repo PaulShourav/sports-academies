@@ -34,8 +34,9 @@ const AllUser = () => {
                             <tr>
                                 <th>Sl</th>
                                 <th>Name</th>
+                                <th>Email</th>
                                 <th>Role</th>
-                                <th>Favorite Color</th>
+                               
                                 <th></th>
                             </tr>
                         </thead>
@@ -57,8 +58,9 @@ const AllUser = () => {
                                     </div>
                                 </div>
                             </td>
+                            
                             <td>
-                                {element.role}
+                                {element.email}<div className={`ms-2 badge ${element.role=="instructor" || element.role=="admin"?"badge-secondary":"badge-outline"}`} >{element.role}</div>
                             </td>
                             <td className="space-x-2">
                             <button onClick={()=>handleRole('instructor',element.email)} className="btn btn-xs  btn-primary" disabled={`${element.role=="instructor"?'disabled':''}`} >Instructor</button>
