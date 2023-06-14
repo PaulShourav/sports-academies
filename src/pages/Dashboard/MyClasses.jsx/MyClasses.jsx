@@ -12,17 +12,7 @@ const MyClasses = () => {
           return res.json()
         },
       })
-    const handleStatus=(status,_id)=>{
-        console.log(status,_id);
-        fetch(`http://localhost:5000/class?status=${status}&id=${_id}`,{
-            method:"PATCH"
-        })
-        .then(res=>res.json())
-        .then(data=>{
-            refetch()
-            
-        })
-    }
+  
     return (
         <div>
               <section>
@@ -33,10 +23,12 @@ const MyClasses = () => {
                             <tr>
                                 <th>Sl</th>
                                 <th>Class name</th>
+                                <th>Instrctor Name</th>
+                                <th>Email</th>
                                 <th>Price</th>
                                 <th>Seats</th>
                                
-                                <th></th>
+                                <th>Satus</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -57,21 +49,22 @@ const MyClasses = () => {
                                     </div>
                                 </div>
                             </td>
-                            
+                            <td>
+                                {element.instructorName}
+                            </td>
+                            <td>
+                                {element.email}
+                            </td>
                             <td>
                                 {element.price}
                             </td>
                             <td>
                                 {element.availableSeat}
                             </td>
-                            <td className="space-x-2">
-                            <button onClick={()=>handleStatus('pending',element._id)} className="btn btn-xs  btn-primary" disabled={`${element.status=="pending"?'disabled':''}`} >Pending</button>
-                            <button onClick={()=>handleStatus('approved',element._id)} className="btn btn-xs  btn-primary" disabled={`${element.status=="approved"?'disabled':''}`} >approved</button>
-                            <button onClick={()=>handleStatus('denied',element._id)} className="btn btn-xs  btn-primary" disabled={`${element.status=="denied"?'disabled':''}`} >denied</button>
+                            <td >
+                            {element.status}
                             </td>
-                            <th>
-                                <button className="btn btn-ghost btn-xs">details</button>
-                            </th>
+                            
                         </tr>
                        
                             )}

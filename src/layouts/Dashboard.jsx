@@ -8,7 +8,10 @@ const Dashboard = () => {
     console.log(isAdmin);
     const navLink = <>
         
-        {isAdmin?<li><Link to={'allUser'}>All user</Link></li>:''}
+        {isAdmin?<>
+            <li><Link to={'allUser'}>All user</Link></li>
+            <li><Link to={'allClasses'}>All Classes</Link></li>
+        </>:''}
         {isInstructor?<>
             <li><Link to={'addClass'}>Add Class</Link></li>
             <li><Link to={'myClasses'}>My Classes</Link></li>
