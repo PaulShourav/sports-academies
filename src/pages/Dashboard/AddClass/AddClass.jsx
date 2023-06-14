@@ -1,8 +1,16 @@
 import { useForm } from "react-hook-form";
+import useInstructor from "../../../hooks/useInstructor";
 
 
 const AddClass = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const [isInstructor]=useInstructor()
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        defaultValues:{
+            instructorName:isInstructor.name,
+            email:isInstructor.email
+        }
+    });
+
    
     const onSubmit = data => { 
         const formData=new FormData()
@@ -13,6 +21,7 @@ const AddClass = () => {
         })
         .then(res=>res.json())
         .then(imgRes=>{
+            console.log(imgRes);
             if (imgRes.success) {
                 addClass(data,imgRes.data.display_url)
             }
@@ -62,19 +71,19 @@ const AddClass = () => {
                         <label className="label">
                             <span className="label-text">Instructor name</span>
                         </label>
-                        <input type="text" {...register("instructorName", { required: true })} placeholder="Type here" className="input input-bordered input-primary input-sm w-full " />
+                        <input type="text" {...register("instructorName")} defaultValue={isInstructor.name}  disabled  className="input input-bordered input-primary input-sm w-full " />
                     </div>
                     <div className="form-control basis-2/5">
                         <label className="label">
-                            <span className="label-text">What is your name?</span>
+                            <span className="label-text">Email</span>
                         </label>
-                        <input type="email" {...register("instructorEmail", { required: true })} placeholder="Type here" className="input input-bordered input-primary input-sm w-full " />
+                        <input type="text" {...register("email")}  defaultValue={isInstructor?.email} disabled  className="input input-bordered input-primary input-sm w-full " />
                     </div>
                     <div className="form-control basis-1/5">
                         <label className="label">
                             <span className="label-text">Available seat<span className="text-red-600">*</span></span>
                         </label>
-                        <input type="text" {...register("availableSeat", { required: true ,pattern:/^[0-9]+([.][0-9]+)?$/})} placeholder="Type here" className="input input-bordered input-primary input-sm w-full " />
+                        <input type="text" {...register("availableSeat", { required: true ,pattern:/^[0-9]*$/})} placeholder="Type here" className="input input-bordered input-primary input-sm w-full " />
                         {errors.availableSeat?.type === "required" && <span className="text-red-600">This field is required</span>}
                         {errors.availableSeat?.type === "pattern" && <span className="text-red-600">This field must be a number formet </span>}
                     </div>

@@ -9,7 +9,10 @@ const Dashboard = () => {
     const navLink = <>
         
         {isAdmin?<li><Link to={'allUser'}>All user</Link></li>:''}
-        {isInstructor?<li><Link to={'addClass'}>Add Class</Link></li>:''}
+        {isInstructor?<>
+            <li><Link to={'addClass'}>Add Class</Link></li>
+            <li><Link to={'myClasses'}>My Classes</Link></li>
+        </>:''}
         {/* <li><Link to={'addClass'}>Add Class</Link></li></> */}
         </>
     return (

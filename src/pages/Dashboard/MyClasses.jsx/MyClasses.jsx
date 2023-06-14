@@ -1,44 +1,47 @@
 import { useQuery } from "@tanstack/react-query";
+import { useContext } from "react";
+import { AuthContext } from "../../../providers/AuthProvider";
 
 
-const AllUser = () => {
-    const {  data: users = [], refetch} = useQuery({
-        queryKey: ['users'],
-        queryFn: async () => {
-            const res = await fetch('http://localhost:5000/user')
-            return res.json()
-        }
-    })
-    const handleRole=(role,email)=>{
-        console.log(role);
-        fetch(`http://localhost:5000/user?role=${role}&email=${email}`,{
-            method:"PATCH",
+const MyClasses = () => {
+    const {user}=useContext(AuthContext)
+    const { data:myClasses=[] ,refetch} = useQuery({
+        queryKey: ['myClasses',user?.email],
+        queryFn: async()=>{
+          const res= await fetch(`http://localhost:5000/myClasses?email=${user?.email}`)
+          return res.json()
+        },
+      })
+    const handleStatus=(status,_id)=>{
+        console.log(status,_id);
+        fetch(`http://localhost:5000/class?status=${status}&id=${_id}`,{
+            method:"PATCH"
         })
         .then(res=>res.json())
         .then(data=>{
             refetch()
-            console.log(data)
+            console.log(data);
         })
     }
     return (
         <div>
-            <section>
+              <section>
                 <div className="overflow-x-auto">
                     <table className="table">
                         {/* head */}
                         <thead>
                             <tr>
                                 <th>Sl</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Role</th>
+                                <th>Class name</th>
+                                <th>Price</th>
+                                <th>Seats</th>
                                
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             {/* row 1 */}
-                            {users.map((element,index)=>
+                            {myClasses.map((element,index)=>
                             <tr key={element._id}>
                             <th>{index+1}</th>
                             <td>
@@ -49,18 +52,22 @@ const AllUser = () => {
                                         </div>
                                     </div>
                                     <div>
-                                        <div className="font-bold">{element.name}</div>
+                                        <div className="font-bold">{element.className}</div>
                                        
                                     </div>
                                 </div>
                             </td>
                             
                             <td>
-                                {element.email}<div className={`ms-2 badge ${element.role=="instructor" || element.role=="admin"?"badge-secondary":"badge-outline"}`} >{element.role}</div>
+                                {element.price}
+                            </td>
+                            <td>
+                                {element.availableSeat}
                             </td>
                             <td className="space-x-2">
-                            <button onClick={()=>handleRole('instructor',element.email)} className="btn btn-xs  btn-primary" disabled={`${element.role=="instructor"?'disabled':''}`} >Instructor</button>
-                            <button onClick={()=>handleRole('admin',element.email)} className="btn btn-xs  btn-primary" disabled={`${element.role=="admin"?'disabled':''}`}>Admin</button>
+                            <button onClick={()=>handleStatus('pending',element._id)} className="btn btn-xs  btn-primary" disabled={`${element.status=="pending"?'disabled':''}`} >Pending</button>
+                            <button onClick={()=>handleStatus('approved',element._id)} className="btn btn-xs  btn-primary" disabled={`${element.status=="approved"?'disabled':''}`} >approved</button>
+                            <button onClick={()=>handleStatus('denied',element._id)} className="btn btn-xs  btn-primary" disabled={`${element.status=="denied"?'disabled':''}`} >denied</button>
                             </td>
                             <th>
                                 <button className="btn btn-ghost btn-xs">details</button>
@@ -79,4 +86,4 @@ const AllUser = () => {
     );
 };
 
-export default AllUser;
+export default MyClasses;

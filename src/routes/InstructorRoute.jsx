@@ -9,7 +9,7 @@ const InstructorRoute = ({children}) => {
     const [isInstructor,isInstructorLoading]=useInstructor()
     const location=useLocation()
     
-    if(isLoading && isInstructorLoading){
+    if( isInstructorLoading){
         return <span className="loading loading-spinner text-secondary"></span>
     }
     

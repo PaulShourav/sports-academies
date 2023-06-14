@@ -5,11 +5,11 @@ import { Navigate, useLocation } from "react-router-dom";
 
 
 const AdminRoute = ({children}) => {
-    const {user,isLoading}=useContext(AuthContext)
+    const {user}=useContext(AuthContext)
     const [isAdmin,isAdminLoading]=useAdmin()
     const location=useLocation()
     
-    if(isLoading && isAdminLoading){
+    if( isAdminLoading){
         return <span className="loading loading-spinner text-secondary"></span>
     }
     
