@@ -20,7 +20,7 @@ const MyClasses = () => {
         .then(res=>res.json())
         .then(data=>{
             refetch()
-            console.log(data);
+            
         })
     }
     return (
