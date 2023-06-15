@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import SectionTitle from "../../../components/SectionTitle";
 
 
 const AllUser = () => {
@@ -23,6 +24,7 @@ const AllUser = () => {
     }
     return (
         <div>
+            <SectionTitle heading={"All User"}/>
             <section>
                 <div className="overflow-x-auto">
                     <table className="table">

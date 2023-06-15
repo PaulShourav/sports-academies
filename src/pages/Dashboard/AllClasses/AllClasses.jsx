@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../../providers/AuthProvider';
 import { useForm } from 'react-hook-form';
 import useAllClasses from '../../../hooks/useAllClasses';
+import SectionTitle from '../../../components/SectionTitle';
 
 const AllClasses = () => {
     const { user } = useContext(AuthContext)
@@ -38,6 +39,7 @@ const AllClasses = () => {
     }
     return (
         <div>
+            <SectionTitle heading={"All Classes"}/>
             <section>
                 <div className="overflow-x-auto">
                     <table className="table">

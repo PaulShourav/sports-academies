@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import useInstructor from "../../../hooks/useInstructor";
+import SectionTitle from "../../../components/SectionTitle";
 
 
 const AddClass = () => {
@@ -46,6 +47,8 @@ const AddClass = () => {
         })
      }
     return (
+        <>
+        <SectionTitle heading={"Add Classes"}/>
         <div className="self-center max-w-3xl">
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex gap-4 flex-col md:flex-row">
@@ -99,6 +102,8 @@ const AddClass = () => {
                 <input type="submit" className="mt-4 btn btn-sm btn-primary" value={"Add Class"} />
             </form>
         </div>
+        </>
+        
     );
 };
 

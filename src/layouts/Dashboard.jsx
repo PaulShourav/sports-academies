@@ -14,7 +14,7 @@ const Dashboard = () => {
     console.log(user);
     const navLink = <>
     <div className=" flex flex-col items-center mt-6">
-        <img src={user.photoURL} className=" w-24 h-24 rounded-full border-2 border-purple-900 " alt="" />
+        <img src={user?.photoURL} className=" w-24 h-24 rounded-full border-4 border-teal-600" alt="" />
         <p className="font-bold text-xl uppercase mt-2 mb-5 ">{user?.displayName}</p>
     </div>
     <li><NavLink className={({isActive})=>isActive?'active':''} to={'/'}><FaHome/> Home</NavLink ></li>
@@ -46,7 +46,7 @@ const Dashboard = () => {
             </div>
             <div className="drawer-side">
                 <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-                <ul className="menu  p-5  w-80 h-full bg-fuchsia-100 text-base-content">
+                <ul className="menu  p-5  w-80 h-full bg-[#8bf0ba] text-base-content">
                     {/* Sidebar content here */}
                     {navLink}
                 </ul>
