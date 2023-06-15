@@ -2,34 +2,36 @@ import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
 import { AuthContext } from "../../../../providers/AuthProvider";
 import useAllClasses from "../../../../hooks/useAllClasses";
+import SectionTitle from "../../../../components/SectionTitle";
 
 
 const SelectedClass = () => {
-    const {user}=useContext(AuthContext)
-    const [classes]=useAllClasses()
-    const{data:selectedClass=[],refetch}=useQuery({
-        queryKey:["selectedClass",user?.email],
-        queryFn:async()=>{
-            const res=await fetch(`http://localhost:5000/selectedClass?email=${user?.email}`)
+    const { user } = useContext(AuthContext)
+    const [classes] = useAllClasses()
+    const { data: selectedClass = [], refetch } = useQuery({
+        queryKey: ["selectedClass", user?.email],
+        queryFn: async () => {
+            const res = await fetch(`http://localhost:5000/selectedClass?email=${user?.email}`)
             return res.json()
         }
     })
-    const myClasses=classes?.filter(o1=>selectedClass?.some(o2=>o2.classId==o1._id))
+    const myClasses = classes?.filter(o1 => selectedClass?.some(o2 => o2.classId == o1._id))
 
-    const handleDelete=(_id)=>{
+    const handleDelete = (_id) => {
         console.log(_id);
-        fetch(`http://localhost:5000/selectedClass?classId=${_id}&email=${user?.email}`,{
-            method:"DELETE"
+        fetch(`http://localhost:5000/selectedClass?classId=${_id}&email=${user?.email}`, {
+            method: "DELETE"
         })
-        .then(res=>res.json())
-        .then(data=>{
-            refetch()
-            console.log(data);
-        })
+            .then(res => res.json())
+            .then(data => {
+                refetch()
+                console.log(data);
+            })
     }
-   
+
     return (
         <div>
+            <SectionTitle heading={"Selected Classes"}/>
             <section>
                 <div className="overflow-x-auto">
                     <table className="table">
@@ -77,7 +79,7 @@ const SelectedClass = () => {
                                         {element.availableSeat}
                                     </td>
                                     <td className="space-x-2">
-                                        <button onClick={()=>handleDelete(element._id)} className="btn btn-sm btn-primary">Delete</button>
+                                        <button onClick={() => handleDelete(element._id)} className="btn btn-sm btn-primary">Delete</button>
                                     </td>
 
                                 </tr>
