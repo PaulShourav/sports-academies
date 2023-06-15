@@ -12,6 +12,9 @@ import AdminRoute from './AdminRoute';
 import InstructorRoute from './InstructorRoute';
 import MyClasses from '../pages/Dashboard/MyClasses.jsx/MyClasses';
 import AllClasses from '../pages/Dashboard/AllClasses/AllClasses';
+import Classes from '../pages/Classes/Classes';
+import SelectedClass from '../pages/Dashboard/Student/SelectedClass/SelectedClass';
+import Instructor from '../pages/Instructor/Instructor';
 
 const router=createBrowserRouter([
     {
@@ -23,8 +26,12 @@ const router=createBrowserRouter([
                 element:<Home/>
             },
             {
-                path:'screate',
-                element:<PrivateRoute><Screate/></PrivateRoute>
+                path:'classes',
+                element:<Classes/>
+            },
+            {
+                path:'instructor',
+                element:<Instructor/>
             },
             {
                 path:'signIn&Up',
@@ -51,6 +58,10 @@ const router=createBrowserRouter([
             {
                 path:"myClasses",
                 element:<InstructorRoute><MyClasses/></InstructorRoute>
+            },
+            {
+                path:"selectedClass",
+                element:<SelectedClass/>
             }
         ]
     }

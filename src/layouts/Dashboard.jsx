@@ -1,10 +1,12 @@
 import {Link, Outlet } from "react-router-dom";
 import useAdmin from "../hooks/useAdmin";
 import useInstructor from "../hooks/useInstructor";
+import useStudent from "../hooks/useStudent";
 
 const Dashboard = () => {
     const [isAdmin]=useAdmin()
     const [isInstructor]=useInstructor()
+    const [isStudent]=useStudent()
     console.log(isAdmin);
     const navLink = <>
         
@@ -14,6 +16,10 @@ const Dashboard = () => {
         </>:''}
         {isInstructor?<>
             <li><Link to={'addClass'}>Add Class</Link></li>
+            <li><Link to={'myClasses'}>My Classes</Link></li>
+        </>:''}
+        {isStudent?<>
+            <li><Link to={'selectedClass'}>Selected Class</Link></li>
             <li><Link to={'myClasses'}>My Classes</Link></li>
         </>:''}
         {/* <li><Link to={'addClass'}>Add Class</Link></li></> */}

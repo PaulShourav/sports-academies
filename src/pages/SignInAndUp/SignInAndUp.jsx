@@ -15,8 +15,7 @@ const SignInAndUp = () => {
     const navigate=useNavigate()
     const location=useLocation()
     const currentLocation=location?.state?.from?.pathname || '/'
-    console.log(location);
-    console.log(location.state.from.pathname);
+    
     // console.log(user);
    
    

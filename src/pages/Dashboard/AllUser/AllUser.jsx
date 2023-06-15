@@ -9,6 +9,7 @@ const AllUser = () => {
             return res.json()
         }
     })
+    console.log(users);
     const handleRole=(role,email)=>{
         console.log(role);
         fetch(`http://localhost:5000/user?role=${role}&email=${email}`,{
@@ -38,8 +39,7 @@ const AllUser = () => {
                         </thead>
                         <tbody>
                             {/* row 1 */}
-                            {users.map((element,index)=>
-                            <tr key={element._id}>
+                            {users.map((element,index)=> <tr key={element._id}>
                             <th>{index+1}</th>
                             <td>
                                 <div className="flex items-center space-x-3">

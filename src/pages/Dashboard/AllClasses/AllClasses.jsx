@@ -2,18 +2,14 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../../providers/AuthProvider';
 import { useForm } from 'react-hook-form';
+import useAllClasses from '../../../hooks/useAllClasses';
 
 const AllClasses = () => {
     const { user } = useContext(AuthContext)
     const [id, setId] = useState(null);
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { data: classes = [], refetch } = useQuery({
-        queryKey: ['classes'],
-        queryFn: async () => {
-            const res = await fetch("http://localhost:5000/classes")
-            return res.json()
-        },
-    })
+    const [classes,refetch]=useAllClasses()
+   
     const handleStatus = (status, _id) => {
         console.log(status, _id);
         fetch(`http://localhost:5000/class?status=${status}&id=${_id}`, {
@@ -26,7 +22,6 @@ const AllClasses = () => {
             })
     }
     const handleFeedback = (data) => {
-        console.log(id);
         data.id=id
         fetch("http://localhost:5000/class", {
             method: "PATCH",
