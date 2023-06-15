@@ -12,3 +12,9 @@
 /* .tab-active{
     @apply 
 } */
+.menu li{
+    @apply text-base
+}
+.active{
+    @apply focus:bg-blue-400
+}
