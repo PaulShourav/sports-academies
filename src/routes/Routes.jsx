@@ -3,7 +3,6 @@ import { createBrowserRouter } from 'react-router-dom';
 import MainLayout from '../layouts/MainLayout';
 import Home from '../pages/Home/Home';
 import SignInAndUp from '../pages/SignInAndUp/SignInAndUp';
-import Screate from '../pages/Screate';
 import PrivateRoute from './PrivateRoute';
 import Dashboard from '../layouts/Dashboard';
 import AllUser from '../pages/Dashboard/AllUser/AllUser';
@@ -15,11 +14,13 @@ import AllClasses from '../pages/Dashboard/AllClasses/AllClasses';
 import Classes from '../pages/Classes/Classes';
 import SelectedClass from '../pages/Dashboard/Student/SelectedClass/SelectedClass';
 import Instructor from '../pages/Instructor/Instructor';
+import Error from '../pages/Error/Error';
 
 const router=createBrowserRouter([
     {
         path:'/',
         element:<MainLayout/>,
+        errorElement:<Error/>,
         children:[
             {
                 path:'/',
