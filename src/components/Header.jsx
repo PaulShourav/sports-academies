@@ -28,7 +28,7 @@ const Header = () => {
 
 
     return (
-        <header>
+        <header className="fixed z-20 w-full shadow-2xl shadow-gray-400">
             <div className="bg-sky-500 ">
                 <div className="flex gap-6 py-[1px] container mx-auto text-sm">
                     <p className="flex items-center"><FaPhone />: +08801853-000000</p>
@@ -36,7 +36,7 @@ const Header = () => {
                 </div>
 
             </div>
-            <div className="bg-sky-500 bg-opacity-50">
+            <div className="bg-sky-500 bg-opacity-75 ">
                 <div className="container mx-auto">
                     <div className="navbar  py-0 my-0">
                         <div className="navbar-start">
