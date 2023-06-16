@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
+import SectionTitle from "../../../components/SectionTitle";
 
 
 const MyClasses = () => {
@@ -15,6 +16,7 @@ const MyClasses = () => {
   
     return (
         <div>
+            <SectionTitle heading={"My Classes"} />
               <section>
                 <div className="overflow-x-auto">
                     <table className="table">

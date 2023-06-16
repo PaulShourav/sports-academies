@@ -1,21 +1,27 @@
 import { useQuery } from "@tanstack/react-query";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../../../providers/AuthProvider";
 import useAllClasses from "../../../../hooks/useAllClasses";
 import SectionTitle from "../../../../components/SectionTitle";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "../../../../components/Forms/CheckoutForm";
+import { loadStripe } from "@stripe/stripe-js";
 
 
 const SelectedClass = () => {
     const { user } = useContext(AuthContext)
     const [classes] = useAllClasses()
-    const { data: selectedClass = [], refetch } = useQuery({
-        queryKey: ["selectedClass", user?.email],
+    const stripePromise = loadStripe(`${import.meta.env.VITE_Payment_Gateway_PK}`);
+    const [myClass,setMyClass]=useState('')
+
+    const { data: selectedClasses = [], refetch } = useQuery({
+        queryKey: ["selectedClasses", user?.email],
         queryFn: async () => {
             const res = await fetch(`http://localhost:5000/selectedClass?email=${user?.email}`)
             return res.json()
         }
     })
-    const myClasses = classes?.filter(o1 => selectedClass?.some(o2 => o2.classId == o1._id))
+    const myClasses = classes?.filter(o1 => selectedClasses?.some(o2 => o2.classId == o1._id))
 
     const handleDelete = (_id) => {
         console.log(_id);
@@ -31,7 +37,7 @@ const SelectedClass = () => {
 
     return (
         <div>
-            <SectionTitle heading={"Selected Classes"}/>
+            <SectionTitle heading={"Selected Classes"} />
             <section>
                 <div className="overflow-x-auto">
                     <table className="table">
@@ -80,6 +86,7 @@ const SelectedClass = () => {
                                     </td>
                                     <td className="space-x-2">
                                         <button onClick={() => handleDelete(element._id)} className="btn btn-sm btn-primary">Delete</button>
+                                        <label htmlFor="my_modal_7" onClick={()=>setMyClass(element)} className="btn btn-sm btn-primary">Payment</label>
                                     </td>
 
                                 </tr>
@@ -92,6 +99,19 @@ const SelectedClass = () => {
                     </table>
                 </div>
             </section>
+            {/* Model */}
+            <input type="checkbox" id="my_modal_7" className="modal-toggle" />
+            <div className="modal">
+                <div className="modal-box">
+                    <h3 className="text-lg font-bold">Hello!</h3>
+                    <Elements stripe={stripePromise}>
+                        <CheckoutForm  myClass={myClass}/>
+                    </Elements>
+                  
+                </div>
+
+                <label className="modal-backdrop" htmlFor="my_modal_7">Close</label>
+            </div>
         </div>
     );
 };
