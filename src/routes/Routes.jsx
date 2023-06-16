@@ -15,6 +15,7 @@ import Classes from '../pages/Classes/Classes';
 import SelectedClass from '../pages/Dashboard/Student/SelectedClass/SelectedClass';
 import Instructor from '../pages/Instructor/Instructor';
 import Error from '../pages/Error/Error';
+import EnrolledClasses from '../pages/Dashboard/Student/EnrolledClasses/EnrolledClasses';
 
 const router=createBrowserRouter([
     {
@@ -63,6 +64,10 @@ const router=createBrowserRouter([
             {
                 path:"selectedClass",
                 element:<SelectedClass/>
+            },
+            {
+                path:"enrolledClass",
+                element:<EnrolledClasses/>
             }
         ]
     }

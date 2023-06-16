@@ -6,6 +6,7 @@ import SectionTitle from "../../../../components/SectionTitle";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../../../../components/Forms/CheckoutForm";
 import { loadStripe } from "@stripe/stripe-js";
+import useEnrolledClasses from "../../../../hooks/useEnrolledClasses";
 
 
 const SelectedClass = () => {
@@ -13,6 +14,7 @@ const SelectedClass = () => {
     const [classes] = useAllClasses()
     const stripePromise = loadStripe(`${import.meta.env.VITE_Payment_Gateway_PK}`);
     const [myClass,setMyClass]=useState('')
+    
 
     const { data: selectedClasses = [], refetch } = useQuery({
         queryKey: ["selectedClasses", user?.email],
@@ -22,6 +24,8 @@ const SelectedClass = () => {
         }
     })
     const myClasses = classes?.filter(o1 => selectedClasses?.some(o2 => o2.classId == o1._id))
+//     const checkEnrolledClass = enrolledClasses?.find(o1 => selectedClasses?.some(o2 => o2.classId == o1.classId))
+// console.log(checkEnrolledClass);
 
     const handleDelete = (_id) => {
         console.log(_id);
@@ -85,8 +89,8 @@ const SelectedClass = () => {
                                         {element.availableSeat}
                                     </td>
                                     <td className="space-x-2">
-                                        <button onClick={() => handleDelete(element._id)} className="btn btn-sm btn-primary">Delete</button>
-                                        <label htmlFor="my_modal_7" onClick={()=>setMyClass(element)} className="btn btn-sm btn-primary">Payment</label>
+                                        <button  onClick={() => handleDelete(element._id)} className="btn btn-sm btn-primary">Delete</button>
+                                        <label htmlFor="my_modal_7"  onClick={()=>setMyClass(element)} className="btn btn-sm btn-primary">Payment</label>
                                     </td>
 
                                 </tr>

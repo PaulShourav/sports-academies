@@ -4,7 +4,7 @@ import useInstructor from "../hooks/useInstructor";
 import useStudent from "../hooks/useStudent";
 import { AuthContext } from "../providers/AuthProvider";
 import { useContext } from "react";
-import { FaBookOpen, FaBookReader, FaHome, FaLaptopMedical, FaUsers } from "react-icons/fa";
+import { FaBookOpen, FaBookReader, FaHive, FaHome, FaLaptopMedical, FaUsers } from "react-icons/fa";
 
 const Dashboard = () => {
     const {user}=useContext(AuthContext)
@@ -23,14 +23,14 @@ const Dashboard = () => {
             <li><NavLink className={({isActive})=>isActive?'active':''} to={'allUser'}><FaUsers/> All user</NavLink ></li>
             <li><NavLink className={({isActive})=>isActive?'active':''} to={'allClasses'}><FaBookReader/> All Classes</NavLink></li>
         </>}
-        {isInstructor?<>
+        {isInstructor && <>
             <li><NavLink className={({isActive})=>isActive?'active':''} to={'addClass'}><FaLaptopMedical/> Add Class</NavLink></li>
             <li><NavLink className={({isActive})=>isActive?'active':''} to={'myClasses'}><FaBookOpen/> My Classes</NavLink></li>
-        </>:''}
-        {isStudent?<>
+        </>}
+        {isStudent && <>
             <li><NavLink className={({isActive})=>isActive?'active':''} to={'selectedClass'}><FaBookOpen/> Selected Class</NavLink></li>
-            <li><NavLink className={({isActive})=>isActive?'active':''} to={'myClasses'}>My Classes</NavLink></li>
-        </>:''}
+            <li><NavLink className={({isActive})=>isActive?'active':''} to={'enrolledClass'}><FaHive/>  Enrolled Classes</NavLink></li>
+        </>}
         {/* <li><Link to={'addClass'}>Add Class</Link></li></> */}
         </>
     return (

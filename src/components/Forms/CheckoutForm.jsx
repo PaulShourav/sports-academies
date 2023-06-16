@@ -3,12 +3,14 @@ import './CheckoutForm.css'
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 
 const CheckoutForm = ({ myClass }) => {
     const { user } = useContext(AuthContext)
     const stripe = useStripe();
     const elements = useElements();
+    const navigate=useNavigate()
     const [cardError, , setCardError] = useState('')
     const [clientSecret, setClientSecret] = useState('')
     useEffect(() => {
@@ -77,7 +79,7 @@ const CheckoutForm = ({ myClass }) => {
             setCardError(confirmError.message)
         } else {
             console.log('[paymentIntent]', paymentIntent);
-            const newData = { classId: myClass._id, studentEmail: user.email, price: myClass.price, transectionId: paymentIntent.id, date: new Date() }
+            const newData = { classId: myClass._id, className: myClass.className, studentEmail: user.email, price: myClass.price, transectionId: paymentIntent.id, date: new Date() }
             console.log(newData);
             if (paymentIntent.status == "succeeded") {
                 fetch('http://localhost:5000/enrolledClass', {
@@ -90,6 +92,7 @@ const CheckoutForm = ({ myClass }) => {
                     .then(res => res.json())
                     .then(data => {
                         toast.success('Succesfully Enrolled the class.')
+                        navigate('/dashboard/enrolledClass')
                     })
             }
         }
