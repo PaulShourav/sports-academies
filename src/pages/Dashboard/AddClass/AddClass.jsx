@@ -1,11 +1,12 @@
 import { useForm } from "react-hook-form";
 import useInstructor from "../../../hooks/useInstructor";
 import SectionTitle from "../../../components/SectionTitle";
+import { toast } from "react-hot-toast";
 
 
 const AddClass = () => {
     const [isInstructor]=useInstructor()
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register, handleSubmit,reset, formState: { errors } } = useForm({
         defaultValues:{
             instructorName:isInstructor.name,
             email:isInstructor.email
@@ -42,7 +43,8 @@ const AddClass = () => {
         .then(data=>{
             
             if (data.insertedId) {
-                console.log(data);
+                reset()
+                toast.success("Successfully Added.")
             }
         })
      }

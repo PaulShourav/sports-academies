@@ -5,7 +5,6 @@ import useEnrolledClasses from "../../../../hooks/useEnrolledClasses";
 
 
 const EnrolledClasses = () => {
-    const [classes] = useAllClasses()
     const [enrolledClasses] = useEnrolledClasses()
 
     return (

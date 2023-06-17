@@ -4,7 +4,7 @@ import { AuthContext } from "../providers/AuthProvider"
 
 const useAdmin=()=>{
     const {user}=useContext(AuthContext)
-    console.log(user);
+
     const { isLoading:isAdminLoading, data:isAdmin } = useQuery({
         queryKey: ['isAdmin',user?.email],
         queryFn: async()=>{
