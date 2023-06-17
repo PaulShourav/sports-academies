@@ -1,15 +1,12 @@
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import { Link } from "react-router-dom";
-import useAdmin from "../hooks/useAdmin";
-import useInstructor from "../hooks/useInstructor";
-import { FaMapMarkerAlt, FaPhone, FaUserAlt } from "react-icons/fa";
+import { FaMapMarkerAlt, FaPhone, FaSignOutAlt, FaUserAlt } from "react-icons/fa";
 
 
 const Header = () => {
     const { user, logOut } = useContext(AuthContext)
-    const [isAdmin, isAdminLoading] = useAdmin()
-    const [isInstructor, isInstructorLoading] = useInstructor()
+    
     const handleLogOut = () => {
         logOut()
             .then(() => {
@@ -63,14 +60,7 @@ const Header = () => {
                                     </div>
                                 </label>
                                 <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                                    <li>
-                                        <a className="justify-between">
-                                            Profile
-                                            <span className="badge">New</span>
-                                        </a>
-                                    </li>
-                                    <li><a>Settings</a></li>
-                                    <li onClick={handleLogOut}><a>Logout</a></li>
+                                    <li onClick={handleLogOut}><a ><FaSignOutAlt/> Logout</a></li>
                                 </ul>
                             </div> : <Link to={'/signIn&Up'} className="btn btn-sm btn-outline btn-primary flex "><FaUserAlt/> Signin/Up</Link>}
                         </div>
