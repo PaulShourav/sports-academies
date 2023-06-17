@@ -28,7 +28,7 @@ const Header = () => {
 
 
     return (
-        <header className="fixed z-20 w-full shadow-2xl shadow-gray-400">
+        <header className="fixed z-20 w-full shadow-2xl shadow-green-200 top-0">
             <div className="bg-sky-500 ">
                 <div className="flex gap-6 py-[1px] container mx-auto text-sm">
                     <p className="flex items-center"><FaPhone />: +08801853-000000</p>

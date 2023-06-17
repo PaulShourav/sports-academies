@@ -32,7 +32,7 @@ const AddClass = () => {
      };
     const addClass=(data,image)=>{
         const newData={"className":data.className,"image":image,"instructorName":data.instructorName,"email":data.email,"availableSeat":parseFloat(data.availableSeat),"price":parseFloat(data.price),"status":"pending"}
-        fetch("http://localhost:5000/class",{
+        fetch("https://sports-academies-server-five.vercel.app/class",{
             method:"POST",
             headers:{
                 "content-type":"application/json"

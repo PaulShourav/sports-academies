@@ -24,7 +24,7 @@ const AllClasses = () => {
             confirmButtonText: 'Yes, Update it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/class?status=${status}&id=${_id}`, {
+                fetch(`https://sports-academies-server-five.vercel.app/class?status=${status}&id=${_id}`, {
                     method: "PATCH"
                 })
                     .then(res => res.json())
@@ -44,7 +44,7 @@ const AllClasses = () => {
     const handleFeedback = (data) => {
         data.id = id
         console.log(data);
-        fetch("http://localhost:5000/feedback", {
+        fetch("https://sports-academies-server-five.vercel.app/feedback", {
             method: "PATCH",
             headers: {
                 "content-type": "application/json"

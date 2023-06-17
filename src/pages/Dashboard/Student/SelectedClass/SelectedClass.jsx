@@ -19,7 +19,7 @@ const SelectedClass = () => {
     const { data: selectedClasses = [], refetch } = useQuery({
         queryKey: ["selectedClasses", user?.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/selectedClass?email=${user?.email}`)
+            const res = await fetch(`https://sports-academies-server-five.vercel.app/selectedClass?email=${user?.email}`)
             return res.json()
         }
     })
@@ -29,7 +29,7 @@ const SelectedClass = () => {
 
     const handleDelete = (_id) => {
         console.log(_id);
-        fetch(`http://localhost:5000/selectedClass?classId=${_id}&email=${user?.email}`, {
+        fetch(`https://sports-academies-server-five.vercel.app/selectedClass?classId=${_id}&email=${user?.email}`, {
             method: "DELETE"
         })
             .then(res => res.json())

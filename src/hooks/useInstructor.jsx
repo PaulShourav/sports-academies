@@ -7,7 +7,7 @@ const useInstructor=()=>{
     const { isLoading:isInstructorLoading, data:isInstructor } = useQuery({
         queryKey: ['isInstructor',user?.email],
         queryFn: async()=>{
-          const res= await fetch(`http://localhost:5000/instructor?email=${user?.email}`)
+          const res= await fetch(`https://sports-academies-server-five.vercel.app/instructor?email=${user?.email}`)
           return res.json()
         },
       })

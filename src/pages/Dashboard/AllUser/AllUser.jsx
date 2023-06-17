@@ -8,7 +8,7 @@ const AllUser = () => {
     const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/user')
+            const res = await fetch('https://sports-academies-server-five.vercel.app/user')
             return res.json()
         }
     })
@@ -24,7 +24,7 @@ const AllUser = () => {
             confirmButtonText: 'Yes, Update it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/user?role=${role}&email=${email}`, {
+                fetch(`https://sports-academies-server-five.vercel.app/user?role=${role}&email=${email}`, {
                     method: "PATCH",
                 })
                     .then(res => res.json())

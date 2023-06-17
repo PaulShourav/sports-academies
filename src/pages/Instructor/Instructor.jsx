@@ -1,32 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
+import InstructorCard from "../../components/InstructorCard";
+import useAllInstructor from "../../hooks/useAllInstructor";
+import Banner from "../../components/Banner";
 
 
 const Instructor = () => {
-    const {data:instructors=[] } = useQuery({
-        queryKey: ['instructors'],
-        queryFn: async()=>{
-          const res= await fetch("http://localhost:5000/allInstructor")
-          return res.json()
-        },
-      })
+    const [instructors] = useAllInstructor()
     return (
-        <section className="mt-10 container mx-auto">
-            <div className="grid gap-5 grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
-                {
-                    instructors?.map(element => <div key={element._id} className="card  bg-base-100 shadow-xl">
-                        <figure><img src={element.image} alt="instructor" /></figure>
-                        <div className="card-body">
-                            <h2 className="card-title">
-                                {element.name}
-                            </h2>
-                            <p className="text-xl">
-                               <span className="font-bold">Email:</span> {element.email}
-                            </p>
-                        </div>
-                    </div>)
-                }
-            </div>
-        </section>
+        <>
+            <Banner heading={"Popular Instructor"} />
+            <section className="mt-10 container mx-auto">
+                <div className="grid gap-5 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 mt-20">
+                    {
+                        instructors?.map(element => <InstructorCard key={element} element={element}></InstructorCard>)
+                    }
+                </div>
+            </section>
+        </>
+
     );
 };
 

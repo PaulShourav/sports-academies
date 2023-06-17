@@ -8,7 +8,7 @@ const useAdmin=()=>{
     const { isLoading:isAdminLoading, data:isAdmin } = useQuery({
         queryKey: ['isAdmin',user?.email],
         queryFn: async()=>{
-          const res= await fetch(`http://localhost:5000/adminUser?email=${user?.email}`)
+          const res= await fetch(`https://sports-academies-server-five.vercel.app/adminUser?email=${user?.email}`)
           return res.json()
         },
       })

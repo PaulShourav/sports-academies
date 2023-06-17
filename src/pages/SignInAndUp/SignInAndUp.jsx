@@ -73,7 +73,7 @@ const SignInAndUp = () => {
     const addUser=(data,name,image)=>{
         console.log(data);
         const newData={name:name,image:image,email:data.email,role:"student"}
-        fetch("http://localhost:5000/user",{
+        fetch("https://sports-academies-server-five.vercel.app/user",{
             method:"POST",
             headers:{
                 "content-type":"application/json"

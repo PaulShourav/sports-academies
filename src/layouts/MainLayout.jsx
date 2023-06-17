@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 
 const MainLayout = () => {
     return (
-        <>
+        <div className="mt-0">
             <Header />
             <Outlet />
             <Footer/>
@@ -13,7 +13,7 @@ const MainLayout = () => {
                 position="top-right"
                 reverseOrder={false}
             />
-        </>
+        </div>
     );
 };
 

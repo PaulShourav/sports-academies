@@ -27,22 +27,22 @@ const SliderBanner = () => {
             >
                 <SwiperSlide>
                     <div>
-                        <img src={slider1} className="w-full h-[300px] md:h-[800px] object-cover" alt="" />
+                        <img src={slider1} className="w-full h-[300px] md:h-[600px] object-cover" alt="" />
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
                     <div>
-                        <img src={slider2} className="w-full h-[300px] md:h-[800px] object-cover" alt="" />
+                        <img src={slider2} className="w-full h-[300px] md:h-[600px] object-cover" alt="" />
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
                     <div>
-                        <img src={slider3} className="w-full h-[300px] md:h-[800px] object-cover" alt="" />
+                        <img src={slider3} className="w-full h-[300px] md:h-[600px] object-cover" alt="" />
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
                     <div>
-                        <img src={slider4} className="w-full h-[300px] md:h-[800px] object-cover" alt="" />
+                        <img src={slider4} className="w-full h-[300px] md:h-[600px] object-cover" alt="" />
                     </div>
                 </SwiperSlide>
             </Swiper>

@@ -24,7 +24,7 @@ const MyClasses = () => {
     const { data: myClasses = [], refetch } = useQuery({
         queryKey: ['myClasses', user?.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/myClasses?email=${user?.email}`)
+            const res = await fetch(`https://sports-academies-server-five.vercel.app/myClasses?email=${user?.email}`)
             return res.json()
         },
     })
@@ -43,7 +43,7 @@ const MyClasses = () => {
             confirmButtonText: 'Yes, update it!'
           }).then((result) => {
             if (result.isConfirmed) {
-                fetch("http://localhost:5000/updateClass",{
+                fetch("https://sports-academies-server-five.vercel.app/updateClass",{
                     method:"PATCH",
                     headers:{
                         "content-type":"application/json"
@@ -52,6 +52,7 @@ const MyClasses = () => {
                 })
                 .then(res => res.json())
                 .then(data => {
+                    refetch()
                     document.getElementById("my_modal_7").checked = false
                     Swal.fire(
                         'Updated!',

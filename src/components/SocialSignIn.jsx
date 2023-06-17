@@ -23,7 +23,7 @@ const SocialSignIn = ({currentLocation}) => {
     }
     const addUser=(user)=>{
         const newData={name:user.displayName,image:user.photoURL,email:user.email,role:"student"}
-        fetch("http://localhost:5000/user",{
+        fetch("https://sports-academies-server-five.vercel.app/user",{
             method:"POST",
             headers:{
                 "content-type":"application/json"

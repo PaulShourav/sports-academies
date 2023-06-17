@@ -4,7 +4,7 @@ const useEnrolledClasses=()=>{
     const { data: enrolledClasses = [], refetch } = useQuery({
         queryKey: ["enrolledClasses"],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/enrolledClass')
+            const res = await fetch('https://sports-academies-server-five.vercel.app/enrolledClass')
             return res.json()
         }
     })

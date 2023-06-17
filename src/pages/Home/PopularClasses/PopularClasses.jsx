@@ -1,22 +1,18 @@
-import { useQuery } from "@tanstack/react-query";
-import { useContext } from "react";
-import { AuthContext } from "../../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import ClassCard from "../../../components/ClassCard";
+import SectionTitle from "../../../components/SectionTitle";
+import useAllClasses from "../../../hooks/useAllClasses";
+import { useContext } from "react";
+import { AuthContext } from "../../../providers/AuthProvider";
 import { toast } from "react-hot-toast";
-import ClassCard from "../../components/ClassCard";
-import Banner from "../../components/Banner";
+import Banner from "../../../components/Banner";
 
 
-const Classes = () => {
+const PopularClasses = () => {
     const { user } = useContext(AuthContext)
+    const [classes]=useAllClasses()
     const navigate = useNavigate()
-    const { data: classes = [], refetch } = useQuery({
-        queryKey: ['classes'],
-        queryFn: async () => {
-            const res = await fetch("https://sports-academies-server-five.vercel.app/approveClasses")
-            return res.json()
-        },
-    })
+    const highestEnrolled=classes?.sort((a, b) => a.enrolledStudent - b.enrolledStudent).slice(0,6)
     const handleSelectClass = (_id) => {
         const newData = { classId: _id, studentEmail: user?.email }
         
@@ -39,18 +35,19 @@ const Classes = () => {
     }
     return (
         <>
-         <Banner heading={"Popular Classes"}/>
-        <section className="mt-24 container mx-auto">
-            <div className="grid gap-5 grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
+        
+        <div className="mt-24 container mx-auto">
+            <SectionTitle heading={"Popular Classes"} />
+            <div className="grid gap-5 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 mt-20">
                 {
-                    classes?.map(element => <ClassCard key={element._id} element={element} handleSelectClass={handleSelectClass}></ClassCard>)
+                    highestEnrolled?.map(element => <ClassCard key={element._id} element={element} handleSelectClass={handleSelectClass}></ClassCard>)
                 }
             </div>
-        </section>
-        </>
-       
 
+        </div>
+        </>
+        
     );
 };
 
-export default Classes;
+export default PopularClasses;

@@ -16,7 +16,7 @@ const CheckoutForm = ({ myClass }) => {
     useEffect(() => {
         const price = { price: myClass.price }
 
-        fetch('http://localhost:5000/create-payment-intent', {
+        fetch('https://sports-academies-server-five.vercel.app/create-payment-intent', {
             method: "POST",
             headers: {
                 "content-type": "application/json"
@@ -82,7 +82,7 @@ const CheckoutForm = ({ myClass }) => {
             const newData = { classId: myClass._id, className: myClass.className, studentEmail: user.email, price: myClass.price, transectionId: paymentIntent.id, date: new Date() }
             console.log(newData);
             if (paymentIntent.status == "succeeded") {
-                fetch('http://localhost:5000/enrolledClass', {
+                fetch('https://sports-academies-server-five.vercel.app/enrolledClass', {
                     method: "POST",
                     headers: {
                         "content-type": "application/json"
