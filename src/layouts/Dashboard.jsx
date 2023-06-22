@@ -1,23 +1,35 @@
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet,useNavigate } from "react-router-dom";
 import useAdmin from "../hooks/useAdmin";
 import useInstructor from "../hooks/useInstructor";
 import useStudent from "../hooks/useStudent";
 import { AuthContext } from "../providers/AuthProvider";
 import { useContext } from "react";
-import { FaBookOpen, FaBookReader, FaHive, FaHome, FaLaptopMedical, FaUsers } from "react-icons/fa";
+import { FaBookOpen, FaBookReader, FaHive, FaHome, FaLaptopMedical, FaSignOutAlt, FaUsers } from "react-icons/fa";
 import { Toaster } from "react-hot-toast";
 
 const Dashboard = () => {
-    const { user } = useContext(AuthContext)
+    const { user,logOut } = useContext(AuthContext)
     const [isAdmin] = useAdmin()
     const [isInstructor] = useInstructor()
     const [isStudent] = useStudent()
+    const navigate = useNavigate()
+    const handleLogOut = () => {
+        logOut()
+            .then(() => {
+                // Sign-out successful.
+                navigate('/')
+            }).catch((error) => {
+                // An error happened.
+            });
+    }
     const navLink = <>
         <div className=" flex flex-col items-center mt-6">
             <img src={user?.photoURL} className=" w-24 h-24 rounded-full border-4 border-teal-600" alt="" />
             <p className="font-bold text-xl uppercase mt-2 mb-5 ">{user?.displayName}</p>
         </div>
-        <li><NavLink className={({ isActive }) => isActive ? 'active' : ''} to={'/'}><FaHome /> Home</NavLink ></li>
+        <li><NavLink className={({ isActive }) => isActive ? 'active' : ''} to={'/'}><FaHome />
+         Home</NavLink ></li>
+         <li onClick={handleLogOut}><a ><FaSignOutAlt/> Logout</a></li>
         <hr className="border-t-[1px] border-black my-5" />
         {isAdmin && <>
             <li><NavLink className={({ isActive }) => isActive ? 'active' : ''} to={'allUser'}><FaUsers /> All user</NavLink ></li>

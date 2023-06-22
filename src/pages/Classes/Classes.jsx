@@ -30,7 +30,7 @@ const Classes = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
+                    toast.success("Successfully selected")
                 })
         } else {
             toast.error("Pls Sign in before selecting the course")

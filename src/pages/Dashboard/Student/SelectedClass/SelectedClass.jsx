@@ -107,7 +107,7 @@ const SelectedClass = () => {
             <input type="checkbox" id="my_modal_7" className="modal-toggle" />
             <div className="modal">
                 <div className="modal-box">
-                    <h3 className="text-lg font-bold">Hello!</h3>
+                    <h3 className="text-lg font-bold">Payment</h3>
                     <Elements stripe={stripePromise}>
                         <CheckoutForm  myClass={myClass}/>
                     </Elements>

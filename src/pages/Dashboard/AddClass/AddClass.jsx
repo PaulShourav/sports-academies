@@ -2,10 +2,12 @@ import { useForm } from "react-hook-form";
 import useInstructor from "../../../hooks/useInstructor";
 import SectionTitle from "../../../components/SectionTitle";
 import { toast } from "react-hot-toast";
+import { useState } from "react";
 
 
 const AddClass = () => {
     const [isInstructor]=useInstructor()
+    const [addBtnHide,setAddBtnHIde]=useState(true)
     const { register, handleSubmit,reset, formState: { errors } } = useForm({
         defaultValues:{
             instructorName:isInstructor.name,
@@ -15,6 +17,7 @@ const AddClass = () => {
 
    
     const onSubmit = data => { 
+        setAddBtnHIde(false)
         const formData=new FormData()
         formData.append('image',data.image[0])
         fetch(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_img_hosting_token}`,{
@@ -45,6 +48,7 @@ const AddClass = () => {
             if (data.insertedId) {
                 reset()
                 toast.success("Successfully Added.")
+                setAddBtnHIde(true)
             }
         })
      }
@@ -101,7 +105,7 @@ const AddClass = () => {
                         {errors.price?.type === "pattern" && <span className="text-red-600">This field must be a number formet </span>}
                     </div>
                 </div>
-                <input type="submit" className="mt-4 btn btn-sm btn-primary" value={"Add Class"} />
+                <input type="submit" disabled={`${addBtnHide?'':'disabled'}`} className="mt-4 btn btn-sm btn-primary" value={"Add Class"} />
             </form>
         </div>
         </>

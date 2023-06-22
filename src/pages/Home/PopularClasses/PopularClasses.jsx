@@ -12,7 +12,8 @@ const PopularClasses = () => {
     const { user } = useContext(AuthContext)
     const [classes]=useAllClasses()
     const navigate = useNavigate()
-    const highestEnrolled=classes?.sort((a, b) => a.enrolledStudent - b.enrolledStudent).slice(0,6)
+    const highestEnrolled=classes?.sort((a, b) => {a.enrolledStudent > b.enrolledStudent}).slice(0,6)
+    console.log(highestEnrolled);
     const handleSelectClass = (_id) => {
         const newData = { classId: _id, studentEmail: user?.email }
         
@@ -26,7 +27,7 @@ const PopularClasses = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
+                    toast.success("Successfully selected")
                 })
         } else {
             toast.error("Pls Sign in before selecting the course")

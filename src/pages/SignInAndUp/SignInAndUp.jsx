@@ -20,9 +20,6 @@ const SignInAndUp = () => {
     const [showPassword,setShowPassword]=useState(true)
     const currentLocation = location?.state?.from?.pathname || '/'
 
-    console.log(showPassword);
-
-
 
     const onSubmitSignIn = data => {
         console.log(data)
@@ -30,12 +27,14 @@ const SignInAndUp = () => {
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
+                navigate(currentLocation,{replace:true})
                 // ...
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 setSignInError(errorMessage);
+                navigate(currentLocation,{replace:true})
             });
     };
     const onSubmitSignUp = data => {
@@ -100,13 +99,14 @@ const SignInAndUp = () => {
             .then(data => {
                 if (data.insertedId) {
                     reset()
+                    navigate(currentLocation,{replace:true})
                 }
             })
     }
     // console.log(tabText);
     return (
         <>
-            <Banner heading={"Sign in &"} />
+            <Banner heading={"Sign in & Up"} />
             <div className="min-h-screen flex justify-center items-center">
                 <div className="card md:w-[800px] md:h-[570px] md:bg-gray-100 shadow-xl mt-14">
                     <div className="card-body">

@@ -75,7 +75,7 @@ const AllClasses = () => {
                                 <th>Email</th>
                                 <th>Price</th>
                                 <th>Seats</th>
-
+                                <th>Enrolled</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -108,6 +108,9 @@ const AllClasses = () => {
                                     </td>
                                     <td>
                                         {element.availableSeat}
+                                    </td>
+                                    <td>
+                                        {element.enrolledStudent || "0"}
                                     </td>
                                     <td className="space-x-2">
 
